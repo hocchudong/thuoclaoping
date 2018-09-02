@@ -21,7 +21,7 @@ systemctl enable docker.service
 Setup the ThuocLaoPing
 
 ```
-$ git clone https://github.com/locvx1234/ThuoclaoPing
+$ https://github.com/hocchudong/thuoclaoping.git
 $ cd ThuoclaoPing
 $ ./rebuild_docker.sh
 ```
@@ -42,6 +42,9 @@ python3.6
 apt-get install software-properties-common python-software-properties
 add-apt-repository ppa:jonathonf/python-3.6
 Press [ENTER] to continue or ctrl-c to cancel adding it
+```
+
+```sh
 apt-get update
 apt-get install python3.6
 ```
@@ -53,7 +56,7 @@ Clone source code and install dependences:
 
 ```
 apt update && apt install -y python3-pip fping redis-server mysql-server-5.7 mysql-client-core-5.7 libmysqlclient-dev
-git clone https://github.com/locvx1234/ThuoclaoPing
+git clone https://github.com/hocchudong/thuoclaoping.git
 mkdir /code
 cp -r ThuoclaoPing/* /code
 cd /code
