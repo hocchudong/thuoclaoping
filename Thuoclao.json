@@ -3,10 +3,10 @@
   "id": null,
   "uid": null,
   "tags": [ "Thuoclaoping" ],
-  "datasource" : "influx",  
+  "datasource" : "influx", 
   "__inputs": [
     {
-      "name": "influx",
+      "name": "DS_INFLUX",
       "label": "influx",
       "description": "",
       "type": "datasource",
@@ -80,8 +80,9 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
+          "repeat": "host",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -91,7 +92,7 @@
               "groupBy": [
                 {
                   "params": [
-                    "30s"
+                    "$interval"
                   ],
                   "type": "time"
                 },
@@ -116,19 +117,19 @@
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -165,19 +166,19 @@
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -214,19 +215,19 @@
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -264,19 +265,19 @@
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -314,19 +315,19 @@
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -364,19 +365,19 @@
                   },
                   {
                     "params": [],
-                    "type": "mean"
+                    "type": "last"
                   }
                 ]
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -386,7 +387,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Thuoclao",
+          "title": "$host",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -437,13 +438,14 @@
           "id": 2,
           "links": [],
           "pageSize": null,
+          "repeat": "host",
           "scroll": true,
           "showHeader": true,
           "sort": {
             "col": 0,
             "desc": true
           },
-          "span": 12,
+          "span": 4,
           "styles": [
             {
               "dateFormat": "YYYY-MM-DD HH:mm:ss",
@@ -502,13 +504,13 @@
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -551,13 +553,13 @@
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
@@ -600,20 +602,20 @@
               ],
               "tags": [
                 {
-                  "key": "host",
+                  "key": "hostname",
                   "operator": "=~",
                   "value": "/^$host$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "user",
+                  "key": "username",
                   "operator": "=~",
                   "value": "/^$username$/"
                 }
               ]
             }
           ],
-          "title": "",
+          "title": "$host",
           "transform": "timeseries_to_columns",
           "type": "table"
         }
@@ -638,10 +640,10 @@
         "hide": 0,
         "includeAll": false,
         "label": null,
-        "multi": false,
+        "multi": true,
         "name": "username",
         "options": [],
-        "query": "SHOW TAG VALUES WITH KEY=\"user\"",
+        "query": "SHOW TAG VALUES WITH KEY=\"username\"",
         "refresh": 1,
         "regex": "",
         "sort": 0,
@@ -658,10 +660,10 @@
         "hide": 0,
         "includeAll": false,
         "label": null,
-        "multi": false,
+        "multi": true,
         "name": "host",
         "options": [],
-        "query": "SHOW TAG VALUES WITH KEY=host",
+        "query": "SHOW TAG VALUES WITH KEY=\"hostname\"",
         "refresh": 1,
         "regex": "",
         "sort": 0,
@@ -674,7 +676,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -704,6 +706,6 @@
   },
   "timezone": "browser",
   "title": "Thuoclao",
-  "version": 4
+  "version": 15
   }
 }
