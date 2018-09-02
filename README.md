@@ -4,8 +4,22 @@
 ThuoclaoPing - A product is made by HocChuDong team
 ThuocLaoPing written in Python (Work-In-Progress)
 ```
+Some of the screen pictures :)
 
-Docker
+- web browser
+
+  <img src='https://i.imgur.com/ox8EzY8.png'>
+
+- mobile
+
+  <img src='https://i.imgur.com/UZuEEkZ.png'>
+
+## Setup
+- [1 Use Docker to setup the ThuocLaoPing](#docker)
+- [2 Setup manual the ThuocLaoPing ](#manual)
+
+
+### <a name="docker">1. Docker</a>
 ------
 
 Install docker
@@ -34,7 +48,7 @@ Password : `strongpass@@`
 
 Bejoy !
 
-
+### <a name="manual">2. Manual</a>
 Environment 
 -----------
 python3.6
