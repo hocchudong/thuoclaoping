@@ -1,0 +1,98 @@
+{% extends "base_site.html" %}
+
+{% block title %} Help {% endblock title %}
+{% load static %}
+{% block stylesheets %}
+{{ block.super }}
+{% endblock stylesheets %}
+{% load static %}
+{% block content %}
+
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Customer support</h3>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>FAQ</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <form id="main" class="form-horizontal form-label-left" method="post" data-parsley-validate >
+              <p>
+                  Plugin use <a  target="_blank" rel="noopener noreferrer" href="http://{{ mtiket_server }}">MTicket System</a>
+              </p>
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12"> Title </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <input type="text" id="title" name="title" class="form-control col-md-6 col-xs-10">
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+                <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="topic"> Topic </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <select name="topic" class="form-control" id="myTopic">
+                        {% for topic in topics %}
+                            <option value="{{topic.id}}" name="{{topic.name}}">{{topic.name}} - {{topic.description}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="content"> Content </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <textarea name="content" id="content"  class="form-control col-md-6 col-xs-10" rows="9"></textarea>
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="attach"> Attach </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <input type="file" class="form-control" accept="image/*" name="attach" id="attach">
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                {% if notification %}
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                  <p style="color:red">{{ notification }}</p>
+                  <small>If have not an account. <a  target="_blank" href="http://{{ mtiket_server }}">Register now?</a> or 
+                    <a  target="_blank" href="http://{{ mtiket_server }}"> Login</a> to get your token</small>
+                </div>
+                {% endif %}
+              </div>
+            
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <button type="reset" class="btn btn-primary">Clear</button>
+                  <button id="send" type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super }}
+{% endblock javascripts %}

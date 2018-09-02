@@ -1,0 +1,56 @@
+version: '3'
+services:
+  nginx: 
+    build: ./nginx
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+  db:
+    image: mysql:5.7
+    restart: always
+    expose:
+      - "3306"
+    volumes:
+      - ./dockermysql:/var/lib/mysql
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=thuoclao
+      - MYSQL_ROOT_PASSWORD=123456
+  web:
+    build: .
+    volumes:
+      - .:/code
+    expose:
+      - "8000"
+    depends_on:
+      - db
+      - influxdb
+      - redis
+  influxdb:
+    image: influxdb:1.5
+    restart: always
+    volumes:
+      - ./docker-influxdb:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=thuoclao
+      - INFLUXDB_USER=thuoclao
+      - INFLUXDB_USER_PASSWORD=thuoclao
+  grafana:
+    image: grafana/grafana:4.1.0
+    volumes:
+      - .:/code
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+  redis:
+    image: redis
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - "6379:6379"
+

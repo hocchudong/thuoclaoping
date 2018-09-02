@@ -1,0 +1,57 @@
+.right_col table#example *:not(button) {
+    background: transparent;
+}
+.right_col .rotate180{
+	transform: rotate(180deg);
+}
+span.agent-name {
+	margin-bottom: 10px;
+}
+.right_col .hidden{
+	display: none;
+}
+.right_col .sort-control-item {
+	display: inline-block;
+	margin: 10px 10px 10px 0;
+}
+.pagination {
+	width: 300px;
+}
+.pagination li{
+	display: inline-block;
+	width: 20px;
+	margin: 0;
+}
+.right_col .pagination li {
+	margin: 0;
+}
+.right_col {
+	font-family: 'Open Sans', sans-serif;
+}
+.control-link a{
+	display: block;
+	height: 30px;
+}
+.sort-control  {
+	margin-bottom: 20px;
+}
+#order-icon {
+	margin-right: 20px;
+}
+.control-tab #sortby-select{
+	margin: 0 20px;
+	text-transform: uppercase;
+}
+.sort-control-item #sortby-select option {
+	text-transform: uppercase;
+}
+.right_col table td:nth-child(2){
+	font-weight: bold;
+}
+.right_col a {
+	font-weight: bold;
+}
+.right_col button#set-pagination:hover ~ .sort-control {
+	display: none !important;
+	visibility: hidden;
+}

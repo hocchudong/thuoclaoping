@@ -1,0 +1,91 @@
+{% extends "base_site.html" %}
+
+{% block title %} Dashboard {% endblock title %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static '/build/css/dashboard.css' %}">
+  {{ block.super }}
+{% endblock stylesheets %}
+{% load static %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    <!-- top tiles -->
+    <div class="row tile_count">
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-server"></i> Total Hosts</span>
+        <div class="count">{{ count_host }}</div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-briefcase"></i> Total servicces</span>
+        <div class="count">{{ count_service }}</div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-thumbs-up"></i> Total OK</span>
+          <div class="count green" id="total_ok"></div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-warning"></i> Total Warning</span>
+        <div class="count blue" id="total_warning"></div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-exclamation-circle"></i> Total Critical</span>
+        <div class="count red" id="total_critical"></div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-clock-o"></i> Time now</span>
+        <div id="MyClockDisplay" class="clock"></div>
+      </div>
+  </div>
+    <!-- /top tiles -->
+    <!-- service menu -->
+    <div id="my_service_menu">
+      <button class="btn active" onclick="filterSelection('all')">All</button>
+      <button class="btn" onclick="filterSelection('ping')">Ping</button>
+      <button class="btn" onclick="filterSelection('http')">HTTP</button>
+    </div>
+    <!-- graphs -->
+    {% for group in groups %}
+    <div class="row filterDiv {{ group.service.service_name }}">
+      <h3>{{ group.group_name }}</h3>
+      {% for item in group.host_set.all %}
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{{ item.hostname }}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div id="chartContainer.{{ item.pk }}.{{ group.service.service_name }}" class="graph" style="height: 300px; width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <div class="clearfix"></div>
+      {% if graph %}
+      <div style="width:600;height:500">
+      {{ graph|safe }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+
+  <script src="{% static '/build/js/dashboard.js' %}"></script>
+  <script src="{% static '/vendors/canvasjs-non-commercial-2.0/canvasjs.min.js' %}"></script>
+{% endblock javascripts %}

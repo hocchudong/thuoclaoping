@@ -1,0 +1,70 @@
+{% extends "base_site.html" %}
+
+{% block title %} Login {% endblock title %}
+{% load static %}
+{% block stylesheets %}
+  {{ block.super }}
+  <!-- Animate.css -->
+  <link href="{% static '/vendors/animate.css/animate.min.css' %}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body_class %}login{% endblock body_class %}
+
+{% block body %}
+  <div>
+    <div class="login_wrapper">
+      <div id="register" class="animate">
+        <section class="login_content">
+            <form method="post">
+                {% csrf_token %}
+                <h1>Create Account</h1>
+                {% if form.errors %}
+                <div>                    
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        <div style="color:red">
+                            {{ error|escape }}
+                        </div>                    
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div style="color:red">
+                            {{ error|escape }}
+                        </div>                    
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div>
+                    {{ form.username.errors }}
+                    {{ form.username }}
+                </div>
+                <div>
+                    {{ form.email.errors }}
+                    {{ form.email }}
+                </div>
+                <div>
+                    {{ form.password.errors }}
+                    {{ form.password }}
+                </div>
+                <div>
+                    {{ form.password2.errors }}
+                    {{ form.password2 }}
+                </div>
+                <div>
+                <button class="btn btn-default" type="submit">Submit</button>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                <p class="change_link">Already a member ?
+                    <a href="{% url 'login' %}" class="to_login"> Log in </a>
+                </p>
+                </div>
+            </form>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
+

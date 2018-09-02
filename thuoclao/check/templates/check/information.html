@@ -1,0 +1,181 @@
+{% extends "base_site.html" %}
+
+{% block title %} Information {% endblock title %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static '/build/css/dashboard.css' %}">
+  {{ block.super }}
+{% endblock stylesheets %}
+{% load static %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="x_content">
+        <div id="ram_info" class="graph_ram" style="height: 350px; width: 48%; float: left"></div>
+        <div id="disk_info" class="graph_disk" style="height: 350px; width: 48%; float: right"></div>
+    </div>
+    <div id="space" class="graph_space" style="height: 20px; width: 100%; float: left"></div>
+    <div class="row tile_count">
+      <div class="col-md-4 col-sm-6 col-xs-8 tile_stats_count">
+        <span class="count_top"><i class="fa fa-briefcase"></i> Measurement Count</span>
+        <div class="count green" id="total_measuere"></div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-8 tile_stats_count">
+        <span class="count_top"><i class="fa fa-briefcase"></i> Series Count</span>
+        <div class="count blue" id="total_series"></div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-8 tile_stats_count">
+        <span class="count_top"><i class="fa fa-briefcase"></i> Average Query Duration</span>
+        <div class="count red" id ="avg_query"></div>
+      </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                    <h2>Network</h2>
+                    <div class="clearfix"></div>
+                </div>
+                    <div class="x_content">
+                        <table id="datatable2" class="table table-striped" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Interface</th>
+                                    <th>byte_sent</th>
+                                    <th>byte_recv</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for interface in interfaces %}
+                                <tr class="interface_row" id="interface-{{interface.name_interface }}">
+                                    <td>
+                                        {{interface.name_interface }}
+                                    </td>
+                                    <td>
+                                        {{interface.bytes_sent }}
+                                    </td>
+                                    <td>
+                                        {{interface.bytes_recv }}
+                                    </td>
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <div class="x_panel">
+                  <div class="x_title">
+                  <h2>CPU information</h2>
+                  <div class="clearfix"></div>
+              </div>
+                  <div class="x_content">
+                      <table id="datatable2" class="table table-striped" cellspacing="0" width="100%">
+                          <thead>
+                              <tr>
+                                  <th>CPU</th>
+                                  <th>Value</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>
+                                      {{ 'cpu user' }}
+                                  </td>
+                                  <td>
+                                      <div id="cpu_user"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'cpu nice' }}
+                                  </td>
+                                  <td>
+                                      <div id="cpu_nice"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'cpu system' }}
+                                  </td>
+                                  <td>
+                                      <div id="cpu_system"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'cpu iowait' }}
+                                  </td>
+                                  <td>
+                                      <div id="cpu_iowait"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'cpu idle' }}
+                                  </td>
+                                  <td>
+                                      <div id="cpu_idle"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'cpu steal' }}
+                                  </td>
+                                  <td>
+                                      <div id="cpu_steal"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'load average 1m' }}
+                                  </td>
+                                  <td>
+                                      <div id="load1m"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'load average 5m' }}
+                                  </td>
+                                  <td>
+                                      <div id="load5m"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      {{ 'load average 15m' }}
+                                  </td>
+                                  <td>
+                                      <div id="load15m"></div>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <div class="x_content">
+        <div id="chartContainer1" class="graph_http_queries" style="height: 300px; width: 100%;"></div>
+    </div>
+    <div id="space" class="graph_space" style="height: 10px; width: 100%; float: left"></div>
+    <div class="x_content">
+        <div id="chartContainer2" class="graph_server_errors" style="height: 300px; width: 100%;"></div>
+    </div>
+    <div id="space" class="graph_space" style="height: 10px; width: 100%; float: left"></div>
+    <div class="x_content">
+        <div id="chartContainer3" class="graph_client_errors" style="height: 300px; width: 100%;"></div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+
+  <script src="{% static '/build/js/information.js' %}"></script>
+  <script src="{% static '/vendors/canvasjs-non-commercial-2.0/canvasjs.min.js' %}"></script>
+{% endblock javascripts %}

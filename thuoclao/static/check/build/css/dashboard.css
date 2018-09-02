@@ -1,0 +1,43 @@
+#my_service_menu .btn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+  
+/* Style the active class (and buttons on mouse-over) */
+#my_service_menu .active, #my_service_menu .btn:hover {
+    background-color: rgb(19, 60, 107);
+    color: white;
+}
+
+/* .container {
+    overflow: hidden;
+} */
+
+.filterDiv {
+    /* float: left; */
+    /* background-color: #2196F3; */
+    /* color: #ffffff; */
+    /* width: 100px; */
+    /* line-height: 100px; */
+    /* text-align: center; */
+    /* margin: 2px;  */
+    display: none; /* Hidden by default */
+}
+
+.show {
+    display: block;
+}
+
+.clock {
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    transform: translateX(0%) translateY(0%);
+    /* color: #17D4FE; */
+    font-size: 2em;
+    /* font-family: Orbitron; */
+    /* letter-spacing: 7px; */
+}

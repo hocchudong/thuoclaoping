@@ -1,0 +1,78 @@
+{% extends "base_site.html" %}
+
+{% block title %} Alert {% endblock title %}
+{% load static %}
+{% block stylesheets %}
+{{ block.super }}
+{% endblock stylesheets %}
+{% load static %}
+{% block content %}
+
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Alert</h3>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Addition contact</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <form id="main" class="form-horizontal form-label-left" method="post" data-parsley-validate >
+              <p>
+                  The address will receive notifications
+              </p>
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="	fa fa-envelope"></i> Email </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <input type="email" id="email_alert" name="email_alert" value="{{alert.email_alert}}" class="form-control col-md-6 col-xs-10">
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+                <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="webhook"><i class="fa fa-slack"></i> Webhook URL </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <input type="url" id="webhook" name="webhook" value="{{alert.webhook}}" placeholder="https://hooks.slack.com/services/xxx..." class="optional form-control col-md-6 col-xs-10">
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telegram_id"><i class="fa fa-paper-plane"></i> Telegram ID </label>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <input data-parsley-type="digits" data-parsley-length="[9,9]" data-parsley-length-message="This value should be exactly 9 characters long" id="telegram_id" name="telegram_id" value="{{alert.telegram_id}}" class="optional form-control col-md-6 col-xs-10">
+                </div>
+                <div class="col-sm-5 messages">
+                </div>
+              </div>
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <button type="submit" class="btn btn-primary">Cancel</button>
+                  <button id="send" type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super }}
+  <script src="{% static '/vendors/jszip/dist/jszip.min.js' %}"></script>
+  <script src="{% static '/vendors/pdfmake/build/pdfmake.min.js' %}"></script>
+  <script src="{% static '/vendors/pdfmake/build/vfs_fonts.js' %}"></script>
+{% endblock javascripts %}

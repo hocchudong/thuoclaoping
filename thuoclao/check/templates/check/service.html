@@ -1,0 +1,134 @@
+{% extends "base_site.html" %}
+
+{% block title %} Service {% endblock title %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static '/build/css/config.css' %}">
+<!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">-->
+<link href="{% static '/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static '/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static '/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static '/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static '/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+              <h2>Services</h2>
+
+              <div class="clearfix"></div>
+            </div>
+                    <div class="x_content">
+                        <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Host</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for service in services %}
+                                  <tr>
+                                      <td>{{ service }}</td>
+                                      <td>
+                                          {% for host in service.host.all %}
+                                          <div>
+                                              {{ host.hostname }}
+                                          </div>
+                                          {% endfor %}
+                                      </td>
+                                      <td><div class="control-link col-xs-3">
+                                              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#config{{service.id}}Modal">Config Settings</button>
+                                              <div id="config{{service.id}}Modal" class="modal fade" role="dialog">
+                                                  <div class="modal-dialog">
+                                                      <!-- Modal content-->
+                                                      <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Edit service {{ service.service_name }}</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{% url 'config_service' service.id %}">
+                                                    {% csrf_token %}
+                                                        <div class="form-group">
+                                                          <label class="control-label col-md-3 col-sm-3 col-xs-12">OK</label>
+                                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" name="ok" value={{ service.ok }} required="required" class="form-control col-md-7 col-xs-12">
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Warning</label>
+                                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" name="warning" value={{ service.warning }} required="required" class="form-control col-md-7 col-xs-12">
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Critical</label>
+                                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" name="critical" value={{ service.critical }} required="required" class="form-control col-md-7 col-xs-12">
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Time interval query</label>
+                                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" name="interval_check" value={{ service.interval_check }} required="required" class="form-control col-md-7 col-xs-12">
+                                                          </div>
+                                                        </div>
+                                                        <div class="ln_solid"></div>
+                                                        <div class="form-group">
+                                                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                            <!-- <button class="btn btn-primary" type="button">Cancel</button> -->
+                                                            <button class="btn btn-primary" type="reset">Reset</button>
+                                                            <button type="submit" class="btn btn-success">Submit</button>
+                                                          </div>
+                                                        </div>
+                                                    </form>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                                  </div>
+                                              </div>
+                                              <a onclick="return confirm('Are you sure?');" href="{% url 'remove_service' service.id %}">Remove Service</a>
+                                          </div></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+  <script src="{% static '/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <!--<script src="{% static '/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>-->
+  <script src="{% static '/vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
+  <script src="{% static '/vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
+  <script src="{% static '/vendors/jszip/dist/jszip.min.js' %}"></script>
+  <script src="{% static 'c/vendors/pdfmake/build/pdfmake.min.js' %}"></script>
+  <script src="{% static '/vendors/pdfmake/build/vfs_fonts.js' %}"></script>
+{% endblock javascripts %}
