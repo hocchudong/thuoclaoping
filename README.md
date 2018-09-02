@@ -1,7 +1,40 @@
 # ThuoclaoPing
 
-``A ThuocLaoPing written in Python (Work-In-Progress)``
- 
+```
+ThuoclaoPing - A product is made by HocChuDong team
+ThuocLaoPing written in Python (Work-In-Progress)
+```
+
+Docker
+------
+
+Cài đặt docker
+
+Các OS áp dụng: CentOS 7.3 64bit, Ubuntu 14.04 64bit, Ubuntu 16.04 64bit
+
+```
+curl -sSL https://get.docker.com/ | sudo sh
+sudo usermod -aG docker `whoami`
+systemctl start docker.service
+systemctl enable docker.service
+```
+Cài đặt ThuocLaoPing
+
+```
+$ git clone https://github.com/locvx1234/ThuoclaoPing
+$ cd ThuoclaoPing
+$ ./rebuild_docker.sh
+```
+
+Then, access `http://ip-docker-host`
+
+User : `admin`
+
+Password : `strongpass@@`
+
+Bejoy !
+
+
 Environment 
 -----------
 python3.6
@@ -134,15 +167,6 @@ cp /code/nginx/nginx.conf /etc/nginx/conf.d/
 sed -i 's/include \/etc\/nginx\/sites-enabled/#include \/etc\/nginx\/sites-enabled/g' /etc/nginx/nginx.conf
 systemctl restart nginx
 systemctl enable nginx
-```
-
-Docker
-------
-
-```
-$ git clone https://github.com/locvx1234/ThuoclaoPing
-$ cd ThuoclaoPing
-$ ./rebuild_docker.sh
 ```
 
 Then, access `http://ip-docker-host`
