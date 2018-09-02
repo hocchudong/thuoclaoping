@@ -35,8 +35,12 @@ systemctl enable docker.service
 Setup the ThuocLaoPing
 
 ```
-$ https://github.com/hocchudong/thuoclaoping.git
-$ cd ThuoclaoPing
+$ yum install git -y
+$ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+$ python get-pip.py
+$ pip install docker-compose
+$ git clone https://github.com/hocchudong/thuoclaoping.git
+$ cd thuoclaoping
 $ ./rebuild_docker.sh
 ```
 
@@ -72,7 +76,7 @@ Clone source code and install dependences:
 apt update && apt install -y python3-pip fping redis-server mysql-server-5.7 mysql-client-core-5.7 libmysqlclient-dev
 git clone https://github.com/hocchudong/thuoclaoping.git
 mkdir /code
-cp -r ThuoclaoPing/* /code
+cp -r thuoclaoping/* /code
 cd /code
 pip3 install -r requirements.txt
 ```
