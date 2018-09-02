@@ -4,8 +4,22 @@
 ThuoclaoPing - A product is made by HocChuDong team
 ThuocLaoPing written in Python (Work-In-Progress)
 ```
+Some of the screen pictures :)
 
-Docker
+- web browser
+
+  <img src='https://i.imgur.com/ox8EzY8.png'>
+
+- mobile
+
+  <img src='https://i.imgur.com/UZuEEkZ.png'>
+
+## Setup
+- [1 Use Docker to setup the ThuocLaoPing](#docker)
+- [2 Setup manual the ThuocLaoPing ](#manual)
+
+
+### <a name="docker">1. Docker</a>
 ------
 
 Install docker
@@ -21,7 +35,7 @@ systemctl enable docker.service
 Setup the ThuocLaoPing
 
 ```
-$ git clone https://github.com/locvx1234/ThuoclaoPing
+$ https://github.com/hocchudong/thuoclaoping.git
 $ cd ThuoclaoPing
 $ ./rebuild_docker.sh
 ```
@@ -34,7 +48,7 @@ Password : `strongpass@@`
 
 Bejoy !
 
-
+### <a name="manual">2. Manual</a>
 Environment 
 -----------
 python3.6
@@ -42,6 +56,9 @@ python3.6
 apt-get install software-properties-common python-software-properties
 add-apt-repository ppa:jonathonf/python-3.6
 Press [ENTER] to continue or ctrl-c to cancel adding it
+```
+
+```sh
 apt-get update
 apt-get install python3.6
 ```
@@ -53,7 +70,7 @@ Clone source code and install dependences:
 
 ```
 apt update && apt install -y python3-pip fping redis-server mysql-server-5.7 mysql-client-core-5.7 libmysqlclient-dev
-git clone https://github.com/locvx1234/ThuoclaoPing
+git clone https://github.com/hocchudong/thuoclaoping.git
 mkdir /code
 cp -r ThuoclaoPing/* /code
 cd /code
