@@ -8,9 +8,9 @@ ThuocLaoPing written in Python (Work-In-Progress)
 Docker
 ------
 
-Cài đặt docker
+Install docker
 
-Các OS áp dụng: CentOS 7.3 64bit, Ubuntu 14.04 64bit, Ubuntu 16.04 64bit
+The OSs: CentOS 7.3 64bit, Ubuntu 14.04 64bit, Ubuntu 16.04 64bit
 
 ```
 curl -sSL https://get.docker.com/ | sudo sh
@@ -18,7 +18,7 @@ sudo usermod -aG docker `whoami`
 systemctl start docker.service
 systemctl enable docker.service
 ```
-Cài đặt ThuocLaoPing
+Setup the ThuocLaoPing
 
 ```
 $ git clone https://github.com/locvx1234/ThuoclaoPing
