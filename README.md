@@ -10,6 +10,12 @@ Some of the screen pictures :)
 
   <img src='https://i.imgur.com/ox8EzY8.png'>
 
+  <img src='https://i.imgur.com/NXAVXCH.png'>
+
+- grafana
+
+  <img src='https://i.imgur.com/Vl6jYd1.png'>
+
 - mobile
 
   <img src='https://i.imgur.com/UZuEEkZ.png'>
