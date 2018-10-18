@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import psutil
+import socket
 
 from django.shortcuts import render
 from django.template import loader
@@ -248,6 +249,7 @@ def host(request, service_name):
 
     if request.method == 'POST':
         if request.POST.get('hostname'):  # add host
+            error = False
             hostname = request.POST.get('hostname')
             description = request.POST.get('host_description')
             group_id = request.POST.get('group')
@@ -256,8 +258,12 @@ def host(request, service_name):
             host_data.save()
             if service_name == 'ping':
                 ip_address = request.POST.get('ip-host')
-                host_attr_data = Host_attribute(host=host_data, attribute_name="ip_address",
-                                                value=ip_address, type_value=4)
+                if validateIPDomain(ip_address):
+                    host_attr_data = Host_attribute(host=host_data, attribute_name="ip_address",
+                                                    value=ip_address, type_value=4)
+                else:
+                    error = True
+                    
             if service_name == 'http':
                 url = request.POST.get('url')
                 host_attr_data = Host_attribute(host=host_data, attribute_name="url",
@@ -393,6 +399,14 @@ def alert(request):
         return HttpResponseRedirect(reverse('alert'))
     context = {'alert': alert_data}
     return render(request, 'check/alert.html', context)
+
+
+def validateIPDomain(netloc):
+    try:
+        socket.gethostbyname(netloc)
+        return True
+    except:
+        return False
 
 
 class GroupList(APIView):
