@@ -2,7 +2,7 @@ import os
 import json
 import requests
 import psutil
-import socket
+import re
 
 from django.shortcuts import render
 from django.template import loader
@@ -259,11 +259,15 @@ def host(request, service_name):
             
             if service_name == 'ping':
                 ip_address = request.POST.get('ip-host')
-                if validateIPDomain(ip_address):
+                pattern = re.compile("^[a-z\d\-_:\.]+$")
+
+                if bool(pattern.match(ip_address)):
+                    
                     host_data = Host(hostname=hostname, description=description, group=group)
                     host_data.save()
                     host_attr_data = Host_attribute(host=host_data, attribute_name="ip_address",
                                                     value=ip_address, type_value=4)
+                    host_attr_data.save()
                 else:
                     error = True
                     msg = "IP or Domain not Validate"
@@ -274,7 +278,7 @@ def host(request, service_name):
                 host_data.save()
                 host_attr_data = Host_attribute(host=host_data, attribute_name="url",
                                                 value=url, type_value=5)
-            host_attr_data.save()
+                host_attr_data.save()
 
         if request.POST.get('group_name'):  # add group
             group_name = request.POST.get('group_name')
@@ -405,14 +409,6 @@ def alert(request):
         return HttpResponseRedirect(reverse('alert'))
     context = {'alert': alert_data}
     return render(request, 'check/alert.html', context)
-
-
-def validateIPDomain(netloc):
-    try:
-        socket.gethostbyname(netloc)
-        return True
-    except:
-        return False
 
 
 class GroupList(APIView):
