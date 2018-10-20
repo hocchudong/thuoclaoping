@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import psutil
+import re
 
 from django.shortcuts import render
 from django.template import loader
@@ -246,23 +247,38 @@ def host(request, service_name):
             item['interval_check'] = interval_check.value
         groups.append(item)
 
+    error = False
+    msg = None
+
     if request.method == 'POST':
         if request.POST.get('hostname'):  # add host
             hostname = request.POST.get('hostname')
             description = request.POST.get('host_description')
             group_id = request.POST.get('group')
             group = Group.objects.get(id=group_id)
-            host_data = Host(hostname=hostname, description=description, group=group)
-            host_data.save()
+            
             if service_name == 'ping':
                 ip_address = request.POST.get('ip-host')
-                host_attr_data = Host_attribute(host=host_data, attribute_name="ip_address",
-                                                value=ip_address, type_value=4)
+                pattern = re.compile("^[a-z\d\-_:\.]+$")
+
+                if bool(pattern.match(ip_address)):
+                    
+                    host_data = Host(hostname=hostname, description=description, group=group)
+                    host_data.save()
+                    host_attr_data = Host_attribute(host=host_data, attribute_name="ip_address",
+                                                    value=ip_address, type_value=4)
+                    host_attr_data.save()
+                else:
+                    error = True
+                    msg = "IP or Domain not Validate"
+
             if service_name == 'http':
                 url = request.POST.get('url')
+                host_data = Host(hostname=hostname, description=description, group=group)
+                host_data.save()
                 host_attr_data = Host_attribute(host=host_data, attribute_name="url",
                                                 value=url, type_value=5)
-            host_attr_data.save()
+                host_attr_data.save()
 
         if request.POST.get('group_name'):  # add group
             group_name = request.POST.get('group_name')
@@ -298,7 +314,7 @@ def host(request, service_name):
         os.system('supervisorctl restart celery')
         return HttpResponseRedirect(reverse('host', kwargs={'service_name': service_name}))
 
-    context = {'hosts': hosts, 'groups': groups}
+    context = {'hosts': hosts, 'groups': groups, 'error': error, 'msg': msg}
     return render(request, 'check/' + str(service_name) + '.html', context)
 
 
